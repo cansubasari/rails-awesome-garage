@@ -1,0 +1,28 @@
+<h1><%= @car.brand %> <%= @car.model %></h1>
+<p>Year: <%= @car.year %></p>
+<p>Fuel: <%= @car.fuel %></p>
+<p>Owner: <%= @car.owner.nickname %></p>
+
+<h2>Reviews:</h2>
+<ul>
+  <% @car.reviews.each do |review| %>
+    <li><strong>Rating:</strong> <%= review.rating %> - <%= review.comment %></li>
+  <% end %>
+</ul>
+
+<h3>Leave a Review</h3>
+
+<%= simple_form_for([@car, @review]) do |f| %>
+  <%= f.input :rating %>
+  <%= f.input :comment %>
+  <%= f.button :submit, "Post Review" %>
+<% end %>
+
+<% if favourite = Favourite.find_by(car: @car) %>
+  <%= button_to "Remove from Garage ❌", favourite_path(favourite), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+<% else %>
+  <%= simple_form_for(Favourite.new, url: favourites_path) do |f| %>
+    <%= f.hidden_field :car_id, value: @car.id %>
+    <%= f.button :submit, "Add to Garage ❤️", class: "btn btn-primary" %>
+  <% end %>
+<% end %>
