@@ -6,23 +6,24 @@
 <h2>Reviews:</h2>
 <ul>
   <% @car.reviews.each do |review| %>
-    <li><strong>Rating:</strong> <%= review.rating %> - <%= review.comment %></li>
+    <li><strong>Rating:</strong> <%= '⭐' * review.rating %> - <%= review.comment %></li>
   <% end %>
 </ul>
 
 <h3>Leave a Review</h3>
 
 <%= simple_form_for([@car, @review]) do |f| %>
-  <%= f.input :rating %>
+  <%= f.input :rating, collection: 1..5 %>
   <%= f.input :comment %>
   <%= f.button :submit, "Post Review" %>
 <% end %>
+<hr>
 
 <% if favourite = Favourite.find_by(car: @car) %>
   <%= button_to "Remove from Garage ❌", favourite_path(favourite), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
 <% else %>
   <%= simple_form_for(Favourite.new, url: favourites_path) do |f| %>
     <%= f.hidden_field :car_id, value: @car.id %>
-    <%= f.button :submit, "Add to Garage ❤️", class: "btn btn-primary" %>
+    <%= f.button :submit, "Add to Garage", class: "btn btn-primary" %>
   <% end %>
 <% end %>

@@ -1,31 +1,33 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>RailsAwesomeGarage</title>
+    <title>Flying Wheels</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css", integrity: "...", crossorigin: "anonymous" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
   </head>
 
   <body>
-     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/">🚗 Awesome Garage</a>
-      <div class="collapse navbar-collapse">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <%= link_to "Home", cars_path, class: "nav-link" %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "My Garage", favourites_path, class: "nav-link" %>
-          </li>
-        </ul>
-      </div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-0">  <!-- Changed py-1 to py-0 -->
+     <div class="container-fluid d-flex justify-content-between align-items-center" style="height: 60px;">  <!-- Added fixed height -->
+
+    <!-- LEFT: Home -->
+    <%= link_to "Home", cars_path, class: "nav-link text-white fw-semibold px-2" %>  <!-- Added px-2 for padding -->
+
+    <!-- CENTER: Logo - Made bigger and clearer -->
+    <div class="d-flex justify-content-center" style="flex-grow: 1;">
+      <%= image_tag("2.png", width: 220, alt: "Flying Wheels Logo", class: "img-fluid", style: "filter: brightness(1.1);") %>
+      <!-- Increased width to 220, added img-fluid class, and brightness filter -->
     </div>
-  </nav>
+
+    <!-- RIGHT: My Garage -->
+    <%= link_to "My Garage", favourites_path, class: "nav-link text-white fw-semibold px-2" %>  <!-- Added px-2 for padding -->
+  </div>
+    </nav>
     <%= yield %>
   </body>
 </html>
